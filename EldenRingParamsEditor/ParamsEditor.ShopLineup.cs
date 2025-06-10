@@ -3,7 +3,7 @@ using Andre.Formats;
 
 namespace EldenRingParamsEditor;
 
-internal partial class ParamsEditor
+public partial class ParamsEditor
 {
     public const int ColIndexEquipId = 0;
     public const int ColIndexSellPrice = 1;

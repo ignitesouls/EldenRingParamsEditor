@@ -21,7 +21,7 @@ internal class ResourceManager
     public static PARAMDEF GetParamDefByName(string resourceName)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        using Stream? stream = assembly.GetManifestResourceStream($"Athena.Resources.ParamDefs.{resourceName}.xml");
+        using Stream? stream = assembly.GetManifestResourceStream($"EldenRingParamsEditor.Resources.ParamDefs.{resourceName}.xml");
         if (stream == null)
         {
             throw new Exception($"Failed to acquire ParamDef resource {resourceName} from assembly");
@@ -40,7 +40,7 @@ internal class ResourceManager
     public static Dictionary<int, List<int>> GetWeaponIDToItemLotIdsByName(string resourceName)
     {
         var assembly = Assembly.GetExecutingAssembly();
-        using Stream? stream = assembly.GetManifestResourceStream($"Athena.Resources.Metadata.{resourceName}.json");
+        using Stream? stream = assembly.GetManifestResourceStream($"EldenRingParamsEditor.Resources.Metadata.{resourceName}.json");
         
         if (stream == null)
         {

@@ -2,7 +2,7 @@
 
 namespace EldenRingParamsEditor;
 
-internal partial class ParamsEditor
+public partial class ParamsEditor
 {
     public const int DefaultScadutreeBlessingLevel = 20000100;
     public const int BaseScadutreeBlessingLevel = 331;

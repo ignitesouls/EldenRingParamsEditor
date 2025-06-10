@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace EldenRingParamsEditor;
 
-internal partial class ParamsEditor
+public partial class ParamsEditor
 {
     private BND4 _regulationBnd;
 

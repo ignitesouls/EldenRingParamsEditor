@@ -2,7 +2,7 @@
 
 namespace EldenRingParamsEditor;
 
-internal partial class ParamsEditor
+public partial class ParamsEditor
 {
     public const int TotalStartingClasses = 10;
     public const int VagabondCharaInitId = 3000; // there's 10 total [3000, 3009]

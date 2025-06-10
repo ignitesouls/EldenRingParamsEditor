@@ -2,7 +2,7 @@
 
 namespace EldenRingParamsEditor;
 
-internal partial class ParamsEditor
+public partial class ParamsEditor
 {
     public object GetItemLotEnemyLotItemId(int itemLotId, int itemIndex)
     {
