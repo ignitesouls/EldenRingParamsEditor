@@ -19,6 +19,59 @@ public partial class ParamsEditor
         return ResourceManager.GetWeaponIdsToItemLot(ItemLotType.Enemy);
     }
 
+    public static Dictionary<int, List<int>> GetWeaponIdsToShopLineup()
+    {
+        return ResourceManager.GetWeaponIdsToShopLineup();
+    }
+
+    public void GenerateMappingWeaponIdsToShopLineup(List<int> weaponIds)
+    {
+        // Only work with known weaponIds
+        List<int> equipWeaponIds = _idToRowIndexEquipWeapon.Keys.ToList();
+        List<int> equipCustomWeaponIds = _idToRowIndexEquipCustomWeapon.Keys.ToList();
+        foreach (int weaponId in weaponIds)
+        {
+            if (!equipWeaponIds.Contains(weaponId) && !equipCustomWeaponIds.Contains(weaponId))
+            {
+                throw new Exception($"Unknown weaponId: {weaponId}");
+            }
+        }
+
+        Dictionary<int, List<int>> weaponIdsToShopLineupMap = new();
+
+        // Iterate through all known ShopLineup Ids
+        List<int> shopLineupIds = _idToRowIndexShopLineup.Keys.ToList();
+        foreach (int shopLineupId in shopLineupIds)
+        {
+            // Get the itemId.
+            int itemId = GetShopLineupEquipId(shopLineupId);
+            if (itemId == 0)
+            {
+                continue; // If it's 0, then just skip it.
+            }
+            byte itemEquipType = GetShopLineupEquipType(shopLineupId);
+            if (itemEquipType != 0 && itemEquipType != 5) // weapon or customWeapon
+            {
+                continue; // If it's not a weapon, then skip it.
+            }
+
+            // Now check if this is one of our target Ids.
+            if (weaponIds.Contains(itemId))
+            {
+                // Add this itemId to the locations
+                List<int> weaponIdLocations = weaponIdsToShopLineupMap.GetOrAdd(itemId, id =>
+                {
+                    return new List<int>() { };
+                });
+                weaponIdLocations.Add(shopLineupId);
+                weaponIdsToShopLineupMap[itemId] = weaponIdLocations;
+            }
+        }
+
+        // Save the results
+        ResourceManager.SaveWeaponIdsToShopLineup(weaponIdsToShopLineupMap);
+    }
+
     public void GenerateMappingWeaponIdsToItemLot(List<int> weaponIds, bool customWeapons = false)
     {
         // Only work with known weaponIds

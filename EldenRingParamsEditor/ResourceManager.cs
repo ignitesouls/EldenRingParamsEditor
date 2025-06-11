@@ -145,4 +145,68 @@ internal class ResourceManager
 
         File.WriteAllText(filePath, json);
     }
+
+    public static Dictionary<int, List<int>> GetWeaponIdsToShopLineup()
+    {
+        string fileName = "WeaponIdsToShopLineup.json";
+        string filePath = Path.Combine("Resources", "Metadata", fileName);
+
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException($"Could not find {fileName} at {filePath}");
+        }
+
+        string json = File.ReadAllText(filePath);
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        // Deserialize into Dictionary<string, List<int>> first
+        var stringKeyed = JsonSerializer.Deserialize<Dictionary<string, List<int>>>(json, options)
+                          ?? throw new Exception("Failed to parse JSON.");
+
+        // Convert string keys to int
+        var result = new Dictionary<int, List<int>>();
+        foreach (var (key, value) in stringKeyed)
+        {
+            if (int.TryParse(key, out int parsedKey))
+            {
+                result[parsedKey] = value;
+            }
+            else
+            {
+                throw new FormatException($"Invalid key in JSON: '{key}' is not a valid int.");
+            }
+        }
+
+        return result;
+    }
+
+    public static void SaveWeaponIdsToShopLineup(Dictionary<int, List<int>> data)
+    {
+        string fileName = "WeaponIdsToShopLineup.json";
+        string filePath = Path.Combine("Resources", "Metadata", fileName);
+
+        // Convert int keys to strings because JSON object keys must be strings
+        var stringKeyed = data.ToDictionary(
+            kvp => kvp.Key.ToString(),
+            kvp => kvp.Value
+        );
+
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        string json = JsonSerializer.Serialize(stringKeyed, options);
+
+        // Ensure the directory exists
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+        File.WriteAllText(filePath, json);
+    }
+
 }

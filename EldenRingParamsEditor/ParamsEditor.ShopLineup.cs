@@ -35,6 +35,16 @@ public partial class ParamsEditor
         SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexSellPrice, 0);
     }
 
+    public int GetShopLineupEquipId(int shopLineupId)
+    {
+        return (int) GetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId);
+    }
+
+    public byte GetShopLineupEquipType(int shopLineupId)
+    {
+        return (byte) GetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipType);
+    }
+
     public void SetShopLineupEquipId(int shopLineupId, int equipId)
     {
         SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId, equipId);
