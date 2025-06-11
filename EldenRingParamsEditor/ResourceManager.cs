@@ -6,6 +6,18 @@ using System.Text.Json;
 
 namespace EldenRingParamsEditor;
 
+public enum ItemLotType
+{
+    Map,
+    Enemy
+}
+
+public class ItemLotEntry
+{
+    public int ID { get; set; }
+    public List<int> LotItems { get; set; } = new();
+}
+
 /// <summary>
 /// The purpose of the ResourceManager is to load runtime-necessary data that is packaged
 /// within the bytecode of the executable. Furthermore, it loads the settings chosen by the
@@ -16,9 +28,11 @@ internal class ResourceManager
     /// <summary>
     /// ParamDef XML files are used by SoulsFormats to parse the data structures stored in
     /// Elden Ring's Regulation.bin file. This is used to modify game data, such as the
-    /// items that are awarded at pickups.
+    /// items that are awarded at pickups. I'm leaving this dead function for educational purposes,
+    /// because I decided to load the data from disk when its needed at runtime, rather than
+    /// to embed it into the executable.
     /// </summary>
-    public static PARAMDEF GetParamDefByName(string resourceName)
+    public static PARAMDEF GetParamDefByNameAssembly(string resourceName)
     {
         var assembly = Assembly.GetExecutingAssembly();
         using Stream? stream = assembly.GetManifestResourceStream($"EldenRingParamsEditor.Resources.ParamDefs.{resourceName}.xml");
@@ -34,34 +48,101 @@ internal class ResourceManager
         return PARAMDEF.XmlSerializer.Deserialize(xml, false);
     }
 
-    /// <summary>
-    /// A mapping from weaponId -> itemLot locations. Used to do replacements wherever the weapon is found.
-    /// </summary>
-    public static Dictionary<int, List<int>> GetWeaponIDToItemLotIdsByName(string resourceName)
+    public static PARAMDEF GetParamDefByName(string resourceName)
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        using Stream? stream = assembly.GetManifestResourceStream($"EldenRingParamsEditor.Resources.Metadata.{resourceName}.json");
-        
-        if (stream == null)
+        string filePath = Path.Combine("Resources", "ParamDefs", $"{resourceName}.xml");
+
+        if (!File.Exists(filePath))
         {
-            throw new Exception($"Failed to acquire Metadata resource {resourceName} from assembly");
+            throw new FileNotFoundException($"ParamDef file not found: {filePath}");
         }
 
-        using StreamReader reader = new StreamReader(stream);
-        string json = reader.ReadToEnd();
-        var metadata = JsonSerializer.Deserialize<Dictionary<int, List<int>>>(json);
-
-        if (metadata == null)
-        {
-            throw new Exception($"Failed to parse JSON from resource: {resourceName}");
-        }
-
-        return metadata;
+        string xmlContent = File.ReadAllText(filePath);
+        XmlDocument xml = new();
+        xml.LoadXml(xmlContent);
+        return PARAMDEF.XmlSerializer.Deserialize(xml, false);
     }
 
-    public static List<List<int>> GetWeaponGroupsFromSettingsFile(string settingsFile)
+    public static Dictionary<int, List<ItemLotEntry>> GetWeaponIdsToItemLot(ItemLotType itemLotType, bool getCustomWeapons = false)
     {
-        var list = new List<List<int>>();
-        return list;
+        string filePath = Path.Combine("Resources", "Metadata");
+        string fileName = "";
+        switch (itemLotType)
+        {
+            case ItemLotType.Map:
+                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotMap.json" : "WeaponIdsToItemLotMap.json";
+                break;
+            case ItemLotType.Enemy:
+                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotEnemy.json" : "WeaponIdsToItemLotEnemy.json";
+                break;
+        }
+        filePath = Path.Combine(filePath, fileName);
+
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException($"Could not find {fileName} at {filePath}");
+        }
+
+        string json = File.ReadAllText(filePath);
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+        
+        // Deserialize into Dictionary<string, List<ItemLotEntry>> first
+        var stringKeyed = JsonSerializer.Deserialize<Dictionary<string, List<ItemLotEntry>>>(json, options)
+                          ?? throw new Exception("Failed to parse JSON.");
+
+        // Convert string keys to int
+        var result = new Dictionary<int, List<ItemLotEntry>>();
+        foreach (var (key, value) in stringKeyed)
+        {
+            if (int.TryParse(key, out int parsedKey))
+            {
+                result[parsedKey] = value;
+            }
+            else
+            {
+                throw new FormatException($"Invalid key in JSON: '{key}' is not a valid int.");
+            }
+        }
+
+        return result;
+    }
+
+    public static void SaveWeaponIdsToItemLot(ItemLotType itemLotType, Dictionary<int, List<ItemLotEntry>> data, bool getCustomWeapons = false)
+    {
+        string filePath = Path.Combine("Resources", "Metadata");
+        string fileName = "";
+        switch (itemLotType)
+        {
+            case ItemLotType.Map:
+                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotMap.json" : "WeaponIdsToItemLotMap.json";
+                break;
+            case ItemLotType.Enemy:
+                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotEnemy.json" : "WeaponIdsToItemLotEnemy.json";
+                break;
+        }
+        filePath = Path.Combine(filePath, fileName);
+
+        // Convert int keys to strings because JSON object keys must be strings
+        var stringKeyed = data.ToDictionary(
+            kvp => kvp.Key.ToString(),
+            kvp => kvp.Value
+        );
+
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        string json = JsonSerializer.Serialize(stringKeyed, options);
+
+        // Ensure the directory exists
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+        File.WriteAllText(filePath, json);
     }
 }

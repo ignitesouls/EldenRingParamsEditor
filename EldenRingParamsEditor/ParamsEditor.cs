@@ -23,7 +23,10 @@ public partial class ParamsEditor
 
     private Param _equipWeapon;
     public Dictionary<int, int> _idToRowIndexEquipWeapon;
-    
+
+    private Param _equipCustomWeapon;
+    public Dictionary<int, int> _idToRowIndexEquipCustomWeapon;
+
     // only has 1 row
     private Param _gameSystemCommon;
 
@@ -34,6 +37,9 @@ public partial class ParamsEditor
 
     public const string EquipParamWeapon = "EquipParamWeapon.param";
     public const string EquipParamWeaponParamDef = "EquipParamWeapon";
+
+    public const string EquipParamCustomWeapon = "EquipParamCustomWeapon.param";
+    public const string EquipParamCustomWeaponParamDef = "EquipParamCustomWeapon";
 
     public const string ShopLineupParam = "ShopLineupParam.param";
     public const string ShopLineupParamDef = "ShopLineupParam";
@@ -83,6 +89,12 @@ public partial class ParamsEditor
                         _equipWeapon = initParam(file, EquipParamWeaponParamDef, _idToRowIndexEquipWeapon);
                         break;
                     }
+                case EquipParamCustomWeapon:
+                    {
+                        _idToRowIndexEquipCustomWeapon = new Dictionary<int, int>();
+                        _equipCustomWeapon = initParam(file, EquipParamCustomWeaponParamDef, _idToRowIndexEquipCustomWeapon);
+                        break;
+                    }
                 case GameSystemCommonParam:
                     {
                         _gameSystemCommon = initParam(file, GameSystemCommonParamDef);
@@ -95,6 +107,7 @@ public partial class ParamsEditor
             || _shopLineup == null || _idToRowIndexShopLineup == null
             || _charaInit == null || _idToRowIndexCharaInit == null
             || _equipWeapon == null || _idToRowIndexEquipWeapon == null
+            || _equipCustomWeapon == null || _idToRowIndexEquipCustomWeapon == null
             || _gameSystemCommon == null)
         {
             throw new Exception("Failed to read expected params from given regulation path");
@@ -198,6 +211,11 @@ public partial class ParamsEditor
                 case EquipParamWeapon:
                     {
                         file.Bytes = _equipWeapon.Write();
+                        break;
+                    }
+                case EquipParamCustomWeapon:
+                    {
+                        file.Bytes = _equipCustomWeapon.Write();
                         break;
                     }
                 case GameSystemCommonParam:

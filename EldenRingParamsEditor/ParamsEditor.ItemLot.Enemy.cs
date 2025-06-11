@@ -4,22 +4,22 @@ namespace EldenRingParamsEditor;
 
 public partial class ParamsEditor
 {
-    public object GetItemLotEnemyLotItemId(int itemLotId, int itemIndex)
+    public int GetItemLotEnemyLotItemId(int itemLotId, int itemIndex)
     {
         if (itemIndex < 0 || itemIndex > 7)
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        return GetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexLotItemId + itemIndex);
+        return (int) GetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexLotItemId + itemIndex);
     }
 
-    public object GetItemLotEnemyCategory(int itemLotId, int itemIndex)
+    public int GetItemLotEnemyCategory(int itemLotId, int itemIndex)
     {
         if (itemIndex < 0 || itemIndex > 7)
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        return GetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexCategory + itemIndex);
+        return (int) GetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexCategory + itemIndex);
     }
 
     public void SetItemLotEnemyLotItemId(int itemLotId, int itemIndex, int itemId)
