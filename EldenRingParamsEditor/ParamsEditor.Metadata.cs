@@ -72,7 +72,7 @@ public partial class ParamsEditor
         ResourceManager.SaveWeaponIdsToShopLineup(weaponIdsToShopLineupMap);
     }
 
-    public void GenerateMappingWeaponIdsToItemLot(List<int> weaponIds, bool customWeapons = false)
+    public void GenerateMappingWeaponIdsToItemLot(List<int> weaponIds)
     {
         // Only work with known weaponIds
         List<int> equipWeaponIds = _idToRowIndexEquipWeapon.Keys.ToList();
@@ -131,7 +131,7 @@ public partial class ParamsEditor
         }
 
         // Save the results
-        ResourceManager.SaveWeaponIdsToItemLot(ItemLotType.Map, weaponIdsToItemLotMap, customWeapons);
+        ResourceManager.SaveWeaponIdsToItemLot(ItemLotType.Map, weaponIdsToItemLotMap);
 
         // Also process ItemLot_enemy
         Dictionary<int, List<ItemLotEntry>> weaponIdsToItemLotEnemy = new();
@@ -181,6 +181,6 @@ public partial class ParamsEditor
         }
 
         // Save the results
-        ResourceManager.SaveWeaponIdsToItemLot(ItemLotType.Enemy, weaponIdsToItemLotEnemy, customWeapons);
+        ResourceManager.SaveWeaponIdsToItemLot(ItemLotType.Enemy, weaponIdsToItemLotEnemy);
     }
 }

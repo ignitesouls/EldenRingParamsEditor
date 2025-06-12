@@ -18,36 +18,8 @@ public class ItemLotEntry
     public List<int> LotItems { get; set; } = new();
 }
 
-/// <summary>
-/// The purpose of the ResourceManager is to load runtime-necessary data that is packaged
-/// within the bytecode of the executable. Furthermore, it loads the settings chosen by the
-/// user from local directories.
-/// </summary>
 internal class ResourceManager
 {
-    /// <summary>
-    /// ParamDef XML files are used by SoulsFormats to parse the data structures stored in
-    /// Elden Ring's Regulation.bin file. This is used to modify game data, such as the
-    /// items that are awarded at pickups. I'm leaving this dead function for educational purposes,
-    /// because I decided to load the data from disk when its needed at runtime, rather than
-    /// to embed it into the executable.
-    /// </summary>
-    public static PARAMDEF GetParamDefByNameAssembly(string resourceName)
-    {
-        var assembly = Assembly.GetExecutingAssembly();
-        using Stream? stream = assembly.GetManifestResourceStream($"EldenRingParamsEditor.Resources.ParamDefs.{resourceName}.xml");
-        if (stream == null)
-        {
-            throw new Exception($"Failed to acquire ParamDef resource {resourceName} from assembly");
-        }
-
-        using StreamReader reader = new StreamReader(stream);
-        string xmlContent = reader.ReadToEnd();
-        XmlDocument xml = new();
-        xml.LoadXml(xmlContent);
-        return PARAMDEF.XmlSerializer.Deserialize(xml, false);
-    }
-
     public static PARAMDEF GetParamDefByName(string resourceName)
     {
         string filePath = Path.Combine("Resources", "ParamDefs", $"{resourceName}.xml");
@@ -63,17 +35,17 @@ internal class ResourceManager
         return PARAMDEF.XmlSerializer.Deserialize(xml, false);
     }
 
-    public static Dictionary<int, List<ItemLotEntry>> GetWeaponIdsToItemLot(ItemLotType itemLotType, bool getCustomWeapons = false)
+    public static Dictionary<int, List<ItemLotEntry>> GetWeaponIdsToItemLot(ItemLotType itemLotType)
     {
         string filePath = Path.Combine("Resources", "Metadata");
         string fileName = "";
         switch (itemLotType)
         {
             case ItemLotType.Map:
-                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotMap.json" : "WeaponIdsToItemLotMap.json";
+                fileName = "WeaponIdsToItemLotMap.json";
                 break;
             case ItemLotType.Enemy:
-                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotEnemy.json" : "WeaponIdsToItemLotEnemy.json";
+                fileName = "WeaponIdsToItemLotEnemy.json";
                 break;
         }
         filePath = Path.Combine(filePath, fileName);
@@ -109,41 +81,6 @@ internal class ResourceManager
         }
 
         return result;
-    }
-
-    public static void SaveWeaponIdsToItemLot(ItemLotType itemLotType, Dictionary<int, List<ItemLotEntry>> data, bool getCustomWeapons = false)
-    {
-        string filePath = Path.Combine("Resources", "Metadata");
-        string fileName = "";
-        switch (itemLotType)
-        {
-            case ItemLotType.Map:
-                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotMap.json" : "WeaponIdsToItemLotMap.json";
-                break;
-            case ItemLotType.Enemy:
-                fileName = getCustomWeapons ? "CustomWeaponIdsToItemLotEnemy.json" : "WeaponIdsToItemLotEnemy.json";
-                break;
-        }
-        filePath = Path.Combine(filePath, fileName);
-
-        // Convert int keys to strings because JSON object keys must be strings
-        var stringKeyed = data.ToDictionary(
-            kvp => kvp.Key.ToString(),
-            kvp => kvp.Value
-        );
-
-        var options = new JsonSerializerOptions
-        {
-            WriteIndented = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-        };
-
-        string json = JsonSerializer.Serialize(stringKeyed, options);
-
-        // Ensure the directory exists
-        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
-
-        File.WriteAllText(filePath, json);
     }
 
     public static Dictionary<int, List<int>> GetWeaponIdsToShopLineup()
@@ -184,6 +121,41 @@ internal class ResourceManager
         return result;
     }
 
+    public static void SaveWeaponIdsToItemLot(ItemLotType itemLotType, Dictionary<int, List<ItemLotEntry>> data)
+    {
+        string filePath = Path.Combine("Resources", "Metadata");
+        string fileName = "";
+        switch (itemLotType)
+        {
+            case ItemLotType.Map:
+                fileName = "WeaponIdsToItemLotMap.json";
+                break;
+            case ItemLotType.Enemy:
+                fileName = "WeaponIdsToItemLotEnemy.json";
+                break;
+        }
+        filePath = Path.Combine(filePath, fileName);
+
+        // Convert int keys to strings because JSON object keys must be strings
+        var stringKeyed = data.ToDictionary(
+            kvp => kvp.Key.ToString(),
+            kvp => kvp.Value
+        );
+
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        string json = JsonSerializer.Serialize(stringKeyed, options);
+
+        // Ensure the directory exists
+        Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+        File.WriteAllText(filePath, json);
+    }
+
     public static void SaveWeaponIdsToShopLineup(Dictionary<int, List<int>> data)
     {
         string fileName = "WeaponIdsToShopLineup.json";
@@ -208,5 +180,4 @@ internal class ResourceManager
 
         File.WriteAllText(filePath, json);
     }
-
 }
