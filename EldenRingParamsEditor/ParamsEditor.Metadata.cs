@@ -9,19 +9,35 @@ namespace EldenRingParamsEditor;
 
 public partial class ParamsEditor
 {
-    public static Dictionary<int, List<ItemLotEntry>> GetWeaponIdsToItemLotMap()
+    private Dictionary<int, List<ItemLotEntry>>? _weaponIdsToItemLotMap;
+    private Dictionary<int, List<ItemLotEntry>>? _weaponIdsToItemLotEnemy;
+    private Dictionary<int, List<int>>? _weaponIdsToItemLotShopLineup;
+
+    public Dictionary<int, List<ItemLotEntry>> GetWeaponIdsToItemLotMap()
     {
-        return ResourceManager.GetWeaponIdsToItemLot(ItemLotType.Map);
+        if (_weaponIdsToItemLotMap == null)
+        {
+            _weaponIdsToItemLotMap = ResourceManager.GetWeaponIdsToItemLot(ItemLotType.Map);
+        }
+        return _weaponIdsToItemLotMap;
     }
 
-    public static Dictionary<int, List<ItemLotEntry>> GetWeaponIdsToItemLotEnemy()
+    public Dictionary<int, List<ItemLotEntry>> GetWeaponIdsToItemLotEnemy()
     {
-        return ResourceManager.GetWeaponIdsToItemLot(ItemLotType.Enemy);
+        if (_weaponIdsToItemLotEnemy == null)
+        {
+            _weaponIdsToItemLotEnemy = ResourceManager.GetWeaponIdsToItemLot(ItemLotType.Enemy);
+        }
+        return _weaponIdsToItemLotEnemy;
     }
 
-    public static Dictionary<int, List<int>> GetWeaponIdsToShopLineup()
+    public Dictionary<int, List<int>> GetWeaponIdsToShopLineup()
     {
-        return ResourceManager.GetWeaponIdsToShopLineup();
+        if (_weaponIdsToItemLotShopLineup == null)
+        {
+            _weaponIdsToItemLotShopLineup = ResourceManager.GetWeaponIdsToShopLineup();
+        }
+        return _weaponIdsToItemLotShopLineup;
     }
 
     public void GenerateMappingWeaponIdsToShopLineup(List<int> weaponIds)
