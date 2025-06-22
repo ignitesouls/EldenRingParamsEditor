@@ -2,6 +2,7 @@
 using SoulsFormats;
 using Andre.Formats;
 using System.Diagnostics;
+using System.IO.Enumeration;
 
 namespace EldenRingParamsEditor;
 
@@ -21,11 +22,20 @@ public partial class ParamsEditor
     private Param _charaInit;
     private Dictionary<int, int> _idToRowIndexCharaInit;
 
+    private Param _equipGoods;
+    public Dictionary<int, int> _idToRowIndexEquipGoods;
+
     private Param _equipWeapon;
     public Dictionary<int, int> _idToRowIndexEquipWeapon;
 
     private Param _equipCustomWeapon;
     public Dictionary<int, int> _idToRowIndexEquipCustomWeapon;
+
+    private Param _equipProtector;
+    public Dictionary<int, int> _idToRowIndexEquipProtector;
+
+    private Param _spEffect;
+    public Dictionary<int, int> _idToRowIndexSpEffect;
 
     // only has 1 row
     private Param _gameSystemCommon;
@@ -35,17 +45,26 @@ public partial class ParamsEditor
     public const string ItemLotParam_enemy = "ItemLotParam_enemy.param";
     public const string ItemLotParamDef = "ItemLotParam";
 
+    public const string EquipParamGoods = "EquipParamGoods.param";
+    public const string EquipParamGoodsParamDef = "EquipParamGoods";
+
     public const string EquipParamWeapon = "EquipParamWeapon.param";
     public const string EquipParamWeaponParamDef = "EquipParamWeapon";
 
     public const string EquipParamCustomWeapon = "EquipParamCustomWeapon.param";
     public const string EquipParamCustomWeaponParamDef = "EquipParamCustomWeapon";
 
+    public const string EquipParamProtector = "EquipParamProtector.param";
+    public const string EquipParamProtectorParamDef = "EquipParamProtector";
+
     public const string ShopLineupParam = "ShopLineupParam.param";
     public const string ShopLineupParamDef = "ShopLineupParam";
 
     public const string CharaInitParam = "CharaInitParam.param";
     public const string CharaInitParamDef = "CharaInitParam";
+
+    public const string SpEffectParam = "SpEffectParam.param";
+    public const string SpEffectParamDef = "SpEffectParam";
 
     public const string GameSystemCommonParam = "GameSystemCommonParam.param";
     public const string GameSystemCommonParamDef = "GameSystemCommonParam";
@@ -83,6 +102,12 @@ public partial class ParamsEditor
                         _charaInit = initParam(file, CharaInitParamDef, _idToRowIndexCharaInit);
                         break;
                     }
+                case EquipParamGoods:
+                    {
+                        _idToRowIndexEquipGoods = new Dictionary<int, int>();
+                        _equipGoods = initParam(file, EquipParamGoodsParamDef, _idToRowIndexEquipGoods);
+                        break;
+                    }
                 case EquipParamWeapon:
                     {
                         _idToRowIndexEquipWeapon = new Dictionary<int, int>();
@@ -93,6 +118,18 @@ public partial class ParamsEditor
                     {
                         _idToRowIndexEquipCustomWeapon = new Dictionary<int, int>();
                         _equipCustomWeapon = initParam(file, EquipParamCustomWeaponParamDef, _idToRowIndexEquipCustomWeapon);
+                        break;
+                    }
+                case EquipParamProtector:
+                    {
+                        _idToRowIndexEquipProtector = new Dictionary<int, int>();
+                        _equipProtector = initParam(file, EquipParamProtectorParamDef, _idToRowIndexEquipProtector);
+                        break;
+                    }
+                case SpEffectParam:
+                    {
+                        _idToRowIndexSpEffect = new Dictionary<int, int>();
+                        _spEffect = initParam(file, SpEffectParamDef, _idToRowIndexSpEffect);
                         break;
                     }
                 case GameSystemCommonParam:
@@ -108,6 +145,8 @@ public partial class ParamsEditor
             || _charaInit == null || _idToRowIndexCharaInit == null
             || _equipWeapon == null || _idToRowIndexEquipWeapon == null
             || _equipCustomWeapon == null || _idToRowIndexEquipCustomWeapon == null
+            || _equipProtector == null || _idToRowIndexEquipProtector == null
+            || _spEffect == null || _idToRowIndexSpEffect == null
             || _gameSystemCommon == null)
         {
             throw new Exception("Failed to read expected params from given regulation path");
@@ -121,7 +160,7 @@ public partial class ParamsEditor
         param.ApplyParamdef(paramdef);
         if (idToRowIndex != null)
         {
-            Debug.WriteLine($"Fetching IDs to rowIndex for {paramdefName}");
+            //Debug.WriteLine($"Fetching IDs to rowIndex for {paramdefName}");
             int i = 0;
             foreach (Param.Row row in param.Rows)
             {
@@ -208,6 +247,11 @@ public partial class ParamsEditor
                         file.Bytes = _charaInit.Write();
                         break;
                     }
+                case EquipParamGoods:
+                    {
+                        file.Bytes = _equipGoods.Write();
+                        break;
+                    }
                 case EquipParamWeapon:
                     {
                         file.Bytes = _equipWeapon.Write();
@@ -216,6 +260,16 @@ public partial class ParamsEditor
                 case EquipParamCustomWeapon:
                     {
                         file.Bytes = _equipCustomWeapon.Write();
+                        break;
+                    }
+                case EquipParamProtector:
+                    {
+                        file.Bytes = _equipProtector.Write();
+                        break;
+                    }
+                case SpEffectParam:
+                    {
+                        file.Bytes = _spEffect.Write();
                         break;
                     }
                 case GameSystemCommonParam:
