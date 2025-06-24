@@ -308,7 +308,7 @@ public partial class ParamsEditor
                     continue; // If it's 0, then just skip it. (Most will be 0).
                 }
                 int itemCategory = GetItemLotMapCategory(itemLotId, i);
-                if (itemCategory != 3) // goods
+                if (itemCategory != 1) // goods
                 {
                     continue; // If it's not a goods item, then skip it.
                 }
@@ -356,7 +356,7 @@ public partial class ParamsEditor
                     continue; // If it's empty, then skip it.
                 }
                 int itemCategory = GetItemLotEnemyCategory(itemLotId, i);
-                if (itemCategory != 3) // goods
+                if (itemCategory != 1) // goods
                 {
                     continue; // If it's not a goods item, then skip it.
                 }
