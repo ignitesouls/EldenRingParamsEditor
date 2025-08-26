@@ -22,6 +22,15 @@ public partial class ParamsEditor
         return (int) GetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexCategory + itemIndex);
     }
 
+    public byte GetItemLotMapItemNum(int itemLotId, int itemIndex)
+    {
+        if (itemIndex < 0 || itemIndex > 7)
+        {
+            throw new Exception($"Index {itemIndex} out of bounds.");
+        }
+        return (byte)GetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexItemNum + itemIndex);
+    }
+
     public void SetItemLotMapLotItemId(int itemLotId, int itemIndex, int itemId)
     {
         if (itemIndex < 0 || itemIndex > 7)
@@ -38,5 +47,14 @@ public partial class ParamsEditor
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
         SetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexCategory + itemIndex, category);
+    }
+
+    public void SetItemLotMapItemNum(int itemLotId, int itemIndex, byte itemNum)
+    {
+        if (itemIndex < 0 || itemIndex > 7)
+        {
+            throw new Exception($"Index {itemIndex} out of bounds.");
+        }
+        SetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexItemNum + itemIndex, itemNum);
     }
 }
