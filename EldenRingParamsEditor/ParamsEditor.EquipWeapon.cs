@@ -11,6 +11,7 @@ public partial class ParamsEditor
     public const int ColIndexReinforceTypeId = 63;
     public const int ColIndexReinforceShopCategory = 230;
     public const int ColIndexIsCustom = 116;
+    public const int ColIndexMaxArrows = 231;
 
     public const int ColIndexProperStrength = 80;
     public const int ColIndexProperDexterity = 81;
@@ -28,6 +29,11 @@ public partial class ParamsEditor
     public void SetEquipWeaponReinforcePrice(int equipWeaponId, int reinforcePrice)
     {
         SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforcePrice, reinforcePrice);
+    }
+
+    public void SetEquipWeaponMaxAmmunition(int equipWeaponId, byte maxArrows)
+    {
+        SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexMaxArrows, maxArrows);
     }
 
     public int GetEquipWeaponMaterialSetId(int equipWeaponId)
@@ -54,6 +60,7 @@ public partial class ParamsEditor
     {
         SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexIsCustom, isCustom);
     }
+
 
     public short GetEquipWeaponReinforceTypeId(int equipWeaponId)
     {

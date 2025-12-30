@@ -85,7 +85,7 @@ public partial class ParamsEditor
         SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexCostType, costType);
     }
 
-    public void SetShopLineupNumSold(int shopLineupId, short numSold)
+    public void SetShopLineupNumSold(int shopLineupId, ushort numSold)
     {
         SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexNumSold, numSold);
     }
