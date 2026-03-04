@@ -37,6 +37,10 @@ public partial class ParamsEditor
     private Param _spEffect;
     public Dictionary<int, int> _idToRowIndexSpEffect;
 
+    //New
+    private Param _bonfireWarpParam;
+    private Dictionary<int, int> _idToRowIndexBonfireWarp;
+
     // only has 1 row
     private Param _gameSystemCommon;
 
@@ -68,6 +72,10 @@ public partial class ParamsEditor
 
     public const string GameSystemCommonParam = "GameSystemCommonParam.param";
     public const string GameSystemCommonParamDef = "GameSystemCommonParam";
+
+    //NEW
+    public const string BonfireWarpParam = "BonfireWarpParam.param";
+    public const string BonfireWarpParamDef = "BonfireWarpParam";
 
     private ParamsEditor(string regulationPath)
     {
@@ -132,6 +140,13 @@ public partial class ParamsEditor
                         _spEffect = initParam(file, SpEffectParamDef, _idToRowIndexSpEffect);
                         break;
                     }
+                //New Case
+                case BonfireWarpParam:
+                    {
+                        _idToRowIndexBonfireWarp = new Dictionary<int, int>();
+                        _bonfireWarpParam = initParam(file, BonfireWarpParamDef, _idToRowIndexBonfireWarp);
+                        break;
+                    }
                 case GameSystemCommonParam:
                     {
                         _gameSystemCommon = initParam(file, GameSystemCommonParamDef);
@@ -147,6 +162,7 @@ public partial class ParamsEditor
             || _equipCustomWeapon == null || _idToRowIndexEquipCustomWeapon == null
             || _equipProtector == null || _idToRowIndexEquipProtector == null
             || _spEffect == null || _idToRowIndexSpEffect == null
+            || _bonfireWarpParam == null || _idToRowIndexBonfireWarp == null //new
             || _gameSystemCommon == null)
         {
             throw new Exception("Failed to read expected params from given regulation path");
@@ -270,6 +286,12 @@ public partial class ParamsEditor
                 case SpEffectParam:
                     {
                         file.Bytes = _spEffect.Write();
+                        break;
+                    }
+                //New Case
+                case BonfireWarpParam:
+                    {
+                        file.Bytes = _bonfireWarpParam.Write();
                         break;
                     }
                 case GameSystemCommonParam:
