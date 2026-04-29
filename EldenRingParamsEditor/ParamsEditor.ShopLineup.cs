@@ -24,99 +24,99 @@ public partial class ParamsEditor
     public void CreateNewShopLineupRow(int shopLineupId, string? name = "")
     {
         // clone the first row. this is necessary because we can only add a row to the param if it has it as a parent
-        Param.Row newRow = new(_shopLineup.Rows.ElementAt(0));
+        Param.Row newRow = new(ShopLineup.Rows.ElementAt(0));
         newRow.ID = shopLineupId;
         newRow.Name = name;
-        _idToRowIndexShopLineup.Add(shopLineupId, _shopLineup.Rows.Count);
-        _shopLineup.AddRow(newRow);
+        _idToRowIndexShopLineup!.Add(shopLineupId, ShopLineup.Rows.Count);
+        ShopLineup.AddRow(newRow);
         // Reset values to default (this row just has these three non-default values)
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId, 0);
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipType, (byte)0);
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexSellPrice, 0);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId, 0);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipType, (byte)0);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexSellPrice, 0);
     }
 
     public int GetShopLineupEquipId(int shopLineupId)
     {
-        return (int) GetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId);
+        return (int) GetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId);
     }
 
     public byte GetShopLineupEquipType(int shopLineupId)
     {
-        return (byte) GetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipType);
+        return (byte) GetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipType);
     }
 
     public void SetShopLineupEquipId(int shopLineupId, int equipId)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId, equipId);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipId, equipId);
     }
 
     public void SetShopLineupSellPrice(int shopLineupId, int sellPrice)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexSellPrice, sellPrice);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexSellPrice, sellPrice);
     }
 
     public void SetShopLineupMaterialId(int shopLineupId, int materialId)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexMaterialId, materialId);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexMaterialId, materialId);
     }
 
     public void SetShopLineupEventFlagForStock(int shopLineupId, uint eventFlag)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEventFlagForStock, eventFlag);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEventFlagForStock, eventFlag);
     }
 
     public void SetShopLineupEventFlagForRelease(int shopLineupId, uint eventFlag)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEventFlagForRelease, eventFlag);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEventFlagForRelease, eventFlag);
     }
 
     public void SetShopLineupSellQuantity(int shopLineupId, short sellQuantity)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexSellQuantity, sellQuantity);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexSellQuantity, sellQuantity);
     }
 
     public void SetShopLineupEquipType(int shopLineupId, byte equipType)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipType, equipType);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexEquipType, equipType);
     }
 
     public void SetShopLineupCostType(int shopLineupId, byte costType)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexCostType, costType);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexCostType, costType);
     }
 
     public void SetShopLineupNumSold(int shopLineupId, ushort numSold)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexNumSold, numSold);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexNumSold, numSold);
     }
 
     public void SetShopLineupValueAdd(int shopLineupId, int valueAdd)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexValueAdd, valueAdd);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexValueAdd, valueAdd);
     }
 
     public void SetShopLineupValueMagnification(int shopLineupId, float valueMagnification)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexValueMagnification, valueMagnification);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexValueMagnification, valueMagnification);
     }
 
     public void SetShopLineupIconId(int shopLineupId, int iconId)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexIconId, iconId);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexIconId, iconId);
     }
 
     public void SetShopLineupTextId(int shopLineupId, int textId)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexTextId, textId);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexTextId, textId);
     }
 
     public void SetShopLineupMenuTextId(int shopLineupId, int textId)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexMenuTextId, textId);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexMenuTextId, textId);
     }
 
     public void SetShopLineupMenuIconId(int shopLineupId, int iconId)
     {
-        SetValueAtCell(_shopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexMenuIconId, iconId);
+        SetValueAtCell(ShopLineup, _idToRowIndexShopLineup, shopLineupId, ColIndexMenuIconId, iconId);
     }
 }

@@ -28,57 +28,57 @@ public partial class ParamsEditor
 
     public void SetEquipWeaponReinforcePrice(int equipWeaponId, int reinforcePrice)
     {
-        SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforcePrice, reinforcePrice);
+        SetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforcePrice, reinforcePrice);
     }
 
     public void SetEquipWeaponMaxAmmunition(int equipWeaponId, byte maxArrows)
     {
-        SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexMaxArrows, maxArrows);
+        SetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexMaxArrows, maxArrows);
     }
 
     public int GetEquipWeaponMaterialSetId(int equipWeaponId)
     {
-        return (int)GetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexMaterialSetId);
+        return (int)GetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexMaterialSetId);
     }
 
     public void SetEquipWeaponMaterialSetId(int equipWeaponId, int materialSetId)
     {
-        SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexMaterialSetId, materialSetId);
+        SetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexMaterialSetId, materialSetId);
     }
 
     public byte GetEquipWeaponProperStat(int equipWeaponId, int stat)
     {
-        return (byte)GetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexProperStats[stat]);
+        return (byte)GetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexProperStats[stat]);
     }
 
     public byte GetEquipWeaponIsCustom(int equipWeaponId)
     {
-        return (byte)GetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexIsCustom);
+        return (byte)GetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexIsCustom);
     }
 
     public void SetEquipWeaponIsCustom(int equipWeaponId, byte isCustom)
     {
-        SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexIsCustom, isCustom);
+        SetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexIsCustom, isCustom);
     }
 
 
     public short GetEquipWeaponReinforceTypeId(int equipWeaponId)
     {
-        return (short)GetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceTypeId);
+        return (short)GetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceTypeId);
     }
 
     public void SetEquipWeaponReinforceTypeId(int equipWeaponId, short reinforceTypeId)
     {
-        SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceTypeId, reinforceTypeId);
+        SetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceTypeId, reinforceTypeId);
     }
 
     public byte GetEquipWeaponReinforceShopCategory(int equipWeaponId)
     {
-        return (byte)GetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceShopCategory);
+        return (byte)GetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceShopCategory);
     }
 
     public void SetEquipWeaponReinforceShopCategory(int equipWeaponId, byte reinforceShopCategory)
     {
-        SetValueAtCell(_equipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceShopCategory, reinforceShopCategory);
+        SetValueAtCell(EquipWeapon, _idToRowIndexEquipWeapon, equipWeaponId, ColIndexReinforceShopCategory, reinforceShopCategory);
     }
 }

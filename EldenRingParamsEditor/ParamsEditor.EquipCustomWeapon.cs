@@ -16,6 +16,10 @@ public partial class ParamsEditor
 
     public int? GetEquipCustomWeaponRowIndex(int equipCustomWeaponId)
     {
+        if (_idToRowIndexEquipCustomWeapon == null)
+        {
+            return null;
+        }
         if (_idToRowIndexEquipCustomWeapon.TryGetValue(equipCustomWeaponId, out int rowIndex))
         {
             return rowIndex;
@@ -26,43 +30,43 @@ public partial class ParamsEditor
     public void CreateNewEquipCustomWeaponRow(int equipCustomWeaponId, string name = "")
     {
         // clone the first row. this is necessary because we can only add a row to the param if it has it as a parent
-        Param.Row newRow = new(_equipCustomWeapon.Rows.ElementAt(0));
+        Param.Row newRow = new(EquipCustomWeapon.Rows.ElementAt(0));
         newRow.ID = equipCustomWeaponId;
         newRow.Name = name;
-        _idToRowIndexEquipCustomWeapon.Add(equipCustomWeaponId, _equipCustomWeapon.Rows.Count);
-        _equipCustomWeapon.AddRow(newRow);
-        SetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexBaseWeaponId, 0);
-        SetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexGemId, 0);
-        SetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexReinforceLevel, (byte)0);
+        _idToRowIndexEquipCustomWeapon!.Add(equipCustomWeaponId, EquipCustomWeapon.Rows.Count);
+        EquipCustomWeapon.AddRow(newRow);
+        SetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexBaseWeaponId, 0);
+        SetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexGemId, 0);
+        SetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexReinforceLevel, (byte)0);
     }
 
     public int GetEquipCustomWeaponBaseWeaponId(int equipCustomWeaponId)
     {
-        return (int)GetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexBaseWeaponId);
+        return (int)GetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexBaseWeaponId);
     }
 
     public void SetEquipCustomWeaponBaseWeaponId(int equipCustomWeaponId, int baseWeaponId)
     {
-        SetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexBaseWeaponId, baseWeaponId);
+        SetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexBaseWeaponId, baseWeaponId);
     }
 
     public int GetEquipCustomWeaponGemId(int equipCustomWeaponId)
     {
-        return (int)GetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexGemId);
+        return (int)GetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexGemId);
     }
 
     public void SetEquipCustomWeaponGemId(int equipCustomWeaponId, int gemId)
     {
-        SetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexGemId, gemId);
+        SetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexGemId, gemId);
     }
 
     public byte GetEquipCustomWeaponReinforceLevel(int equipCustomWeaponId)
     {
-        return (byte)GetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexReinforceLevel);
+        return (byte)GetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexReinforceLevel);
     }
 
     public void SetEquipCustomWeaponReinforceLevel(int equipCustomWeaponId, byte reinforceLevel)
     {
-        SetValueAtCell(_equipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexReinforceLevel, reinforceLevel);
+        SetValueAtCell(EquipCustomWeapon, _idToRowIndexEquipCustomWeapon, equipCustomWeaponId, ColIndexReinforceLevel, reinforceLevel);
     }
 }

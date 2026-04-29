@@ -10,12 +10,12 @@ public partial class ParamsEditor
 
     public object GetBaseScadutreeBlessingLevel()
     {
-        return GetValueAtCell(_gameSystemCommon, null, 0, BaseScadutreeBlessingLevel);
+        return GetValueAtCell(GameSystemCommon, null, 0, BaseScadutreeBlessingLevel);
     }
 
     public void SetBaseScadutreeBlessingLevel(int baseScadutreeBlessingLevel)
     {
         int value = DefaultScadutreeBlessingLevel + baseScadutreeBlessingLevel;
-        SetValueAtCell(_gameSystemCommon, null, 0, BaseScadutreeBlessingLevel, value);
+        SetValueAtCell(GameSystemCommon, null, 0, BaseScadutreeBlessingLevel, value);
     }
 }

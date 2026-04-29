@@ -10,7 +10,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        return (int) GetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexLotItemId + itemIndex);
+        return (int) GetValueAtCell(ItemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexLotItemId + itemIndex);
     }
 
     public int GetItemLotMapCategory(int itemLotId, int itemIndex)
@@ -19,7 +19,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        return (int) GetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexCategory + itemIndex);
+        return (int) GetValueAtCell(ItemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexCategory + itemIndex);
     }
 
     public byte GetItemLotMapItemNum(int itemLotId, int itemIndex)
@@ -28,7 +28,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        return (byte)GetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexItemNum + itemIndex);
+        return (byte)GetValueAtCell(ItemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexItemNum + itemIndex);
     }
 
     public void SetItemLotMapLotItemId(int itemLotId, int itemIndex, int itemId)
@@ -37,7 +37,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        SetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexLotItemId + itemIndex, itemId);
+        SetValueAtCell(ItemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexLotItemId + itemIndex, itemId);
     }
 
     public void SetItemLotMapCategory(int itemLotId, int itemIndex, int category)
@@ -46,7 +46,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        SetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexCategory + itemIndex, category);
+        SetValueAtCell(ItemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexCategory + itemIndex, category);
     }
 
     public void SetItemLotMapItemNum(int itemLotId, int itemIndex, byte itemNum)
@@ -55,6 +55,6 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        SetValueAtCell(_itemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexItemNum + itemIndex, itemNum);
+        SetValueAtCell(ItemLotMap, _idToRowIndexItemLotMap, itemLotId, ColIndexItemNum + itemIndex, itemNum);
     }
 }
