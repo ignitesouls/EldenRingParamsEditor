@@ -10,12 +10,6 @@ public partial class ParamsEditor
 {
     private BND4 _regulationBnd;
 
-    private sealed class IndexedParam
-    {
-        public required Param Param { get; init; }
-        public required Dictionary<int, int> IdToRowIndex { get; init; }
-    }
-
     private Param? _itemLotMap;
     private Dictionary<int, int>? _idToRowIndexItemLotMap;
     public Param ItemLotMap
@@ -150,11 +144,22 @@ public partial class ParamsEditor
         }
     }
 
-    //New
-    private Param _bonfireWarpParam;
+    private Param? _bonfireWarp;
     private Dictionary<int, int> _idToRowIndexBonfireWarp;
+    public Param BonfireWarp
+    {
+        get
+        {
+            if (_bonfireWarp == null)
+            {
+                _idToRowIndexBonfireWarp = new();
+                _bonfireWarp = initParamFromBnd(BonfireWarpParam, BonfireWarpParamDef, _idToRowIndexBonfireWarp);
+            }
+            return _bonfireWarp;
+        }
+    }
 
-    // only has 1 row
+    // only has 1 row: doesn't need a paramID:rowIndex dictionary
     private Param? _gameSystemCommon;
     public Param GameSystemCommon
     {
@@ -197,7 +202,6 @@ public partial class ParamsEditor
     public const string GameSystemCommonParam = "GameSystemCommonParam.param";
     public const string GameSystemCommonParamDef = "GameSystemCommonParam";
 
-    //NEW
     public const string BonfireWarpParam = "BonfireWarpParam.param";
     public const string BonfireWarpParamDef = "BonfireWarpParam";
 
@@ -379,7 +383,10 @@ public partial class ParamsEditor
                 //New Case
                 case BonfireWarpParam:
                     {
-                        file.Bytes = _bonfireWarpParam.Write();
+                        if (_bonfireWarp != null)
+                        {
+                            file.Bytes = _bonfireWarp.Write();
+                        }
                         break;
                     }
                 case GameSystemCommonParam:
