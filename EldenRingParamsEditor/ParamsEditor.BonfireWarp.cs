@@ -4,11 +4,10 @@ namespace EldenRingParamsEditor;
 public partial class ParamsEditor
 {
     public const int ColEventId = 3;
-    uint graceflagOn = 6001;
+    private const uint graceflagOn = 6001;
 
-    public void SetGraceEventFlagId(int graceId)
+    public void SetGraceEventFlagId(int graceId, uint? eventFlagId = graceflagOn)
     {
-        // Cast int → uint explicitly
-        SetValueAtCell(_bonfireWarpParam, _idToRowIndexBonfireWarp, graceId, ColEventId, graceflagOn);
+        SetValueAtCell(BonfireWarp, _idToRowIndexBonfireWarp, graceId, ColEventId, graceflagOn);
     }
 }
