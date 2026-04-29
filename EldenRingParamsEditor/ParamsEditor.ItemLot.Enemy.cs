@@ -10,7 +10,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        return (int) GetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexLotItemId + itemIndex);
+        return (int) GetValueAtCell(ItemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexLotItemId + itemIndex);
     }
 
     public int GetItemLotEnemyCategory(int itemLotId, int itemIndex)
@@ -19,7 +19,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        return (int) GetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexCategory + itemIndex);
+        return (int) GetValueAtCell(ItemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexCategory + itemIndex);
     }
 
     public void SetItemLotEnemyLotItemId(int itemLotId, int itemIndex, int itemId)
@@ -28,7 +28,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        SetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexLotItemId + itemIndex, itemId);
+        SetValueAtCell(ItemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexLotItemId + itemIndex, itemId);
     }
 
     public void SetItemLotEnemyCategory(int itemLotId, int itemIndex, int category)
@@ -37,6 +37,6 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemIndex} out of bounds.");
         }
-        SetValueAtCell(_itemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexCategory + itemIndex, category);
+        SetValueAtCell(ItemLotEnemy, _idToRowIndexItemLotEnemy, itemLotId, ColIndexCategory + itemIndex, category);
     }
 }

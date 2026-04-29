@@ -66,72 +66,72 @@ public partial class ParamsEditor
 
     public void SetInitialRunes(int charaInitId, int initialRunes)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexRunesAmount, initialRunes);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexRunesAmount, initialRunes);
     }
 
     public void SetInitialRuneLevel(int charaInitId, Int16 initialRuneLevel)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexRuneLevel, initialRuneLevel);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexRuneLevel, initialRuneLevel);
     }
 
     public void SetInitialVigor(int charaInitId, byte startingVigor)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexVigor, startingVigor);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexVigor, startingVigor);
     }
 
     public void SetInitialMind(int charaInitId, byte startingMind)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexMind, startingMind);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexMind, startingMind);
     }
 
     public void SetInitialEndurance(int charaInitId, byte startingEndurance)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEndurance, startingEndurance);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEndurance, startingEndurance);
     }
 
     public void SetInitialStrength(int charaInitId, byte startingStrength)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexStrength, startingStrength);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexStrength, startingStrength);
     }
 
     public void SetInitialDexterity(int charaInitId, byte startingDexterity)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexDexterity, startingDexterity);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexDexterity, startingDexterity);
     }
 
     public void SetInitialIntelligence(int charaInitId, byte startingIntelligence)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexIntelligence, startingIntelligence);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexIntelligence, startingIntelligence);
     }
 
     public void SetInitialFaith(int charaInitId, byte startingFaith)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexFaith, startingFaith);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexFaith, startingFaith);
     }
 
     public void SetInitialArcane(int charaInitId, byte startingArcane)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexArcane, startingArcane);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexArcane, startingArcane);
     }
 
     public void SetInitialEquipHelm(int charaInitId, int helmId)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipHelm, helmId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipHelm, helmId);
     }
 
     public void SetInitialEquipTorso(int charaInitId, int torsoId)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipTorso, torsoId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipTorso, torsoId);
     }
 
     public void SetInitialEquipArm(int charaInitId, int armId)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipArm, armId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipArm, armId);
     }
 
     public void SetInitialEquipLeg(int charaInitId, int legId)
     {
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipLeg, legId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipLeg, legId);
     }
 
     public void SetInitialEquipWepRight(int charaInitId, int weaponEquipSlot, int weaponId)
@@ -144,7 +144,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Invalid equip slot {weaponEquipSlot}. Choose a value in [0, 1, 2]");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, colIndex, weaponId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, colIndex, weaponId);
     }
 
     public void SetInitialEquipWepLeft(int charaInitId, int weaponEquipSlot, int weaponId)
@@ -157,7 +157,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Invalid equip slot {weaponEquipSlot}. Choose a value in [0, 1, 2]");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, colIndex, weaponId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, colIndex, weaponId);
     }
 
     public void SetInitialEquipAmmunition(int charaInitId, int ammunitionEquipSlot, int ammunitionId, ushort ammunitionAmount)
@@ -194,8 +194,8 @@ public partial class ParamsEditor
                     throw new Exception($"Invalid equip slot {ammunitionEquipSlot}. Choose a value in [0, 1, 2, 3], corresponding to [arrow, subArrow, bolt, subBolt]");
                 }
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, colIndexAmmunitionId, ammunitionId);
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, colIndexAmmunitionAmount, ammunitionAmount);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, colIndexAmmunitionId, ammunitionId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, colIndexAmmunitionAmount, ammunitionAmount);
     }
 
     public void SetInitialEquipTalisman(int charaInitId, int itemSlot, int itemId)
@@ -204,7 +204,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemSlot} out of bounds.");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipTalisman + itemSlot, itemId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipTalisman + itemSlot, itemId);
     }
 
     public void SetInitialEquipSpell(int charaInitId, int spellSlot, int spellId)
@@ -213,7 +213,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {spellSlot} out of bounds.");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipSpell + spellSlot, spellId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexEquipSpell + spellSlot, spellId);
     }
 
     public void SetInitialEquipItem(int charaInitId, int itemSlot, int itemId)
@@ -222,7 +222,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemSlot} out of bounds.");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexItem + itemSlot, itemId);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexItem + itemSlot, itemId);
     }
 
     public void SetInitialEquipItemAmount(int charaInitId, int itemSlot, byte itemAmount)
@@ -231,7 +231,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {itemSlot} out of bounds.");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexItemAmounts + itemSlot, itemAmount);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexItemAmounts + itemSlot, itemAmount);
     }
 
     public void SetInitialMaxHpFlasks(int charaInitId, sbyte maxHpFlasks)
@@ -240,7 +240,7 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {maxHpFlasks} out of bounds.");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexMaxHpFlasks, maxHpFlasks);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexMaxHpFlasks, maxHpFlasks);
     }
 
     public void SetInitialMaxFpFlasks(int charaInitId, sbyte maxFpFlasks)
@@ -249,6 +249,6 @@ public partial class ParamsEditor
         {
             throw new Exception($"Index {maxFpFlasks} out of bounds.");
         }
-        SetValueAtCell(_charaInit, _idToRowIndexCharaInit, charaInitId, ColIndexMaxFpFlasks, maxFpFlasks);
+        SetValueAtCell(CharaInit, _idToRowIndexCharaInit, charaInitId, ColIndexMaxFpFlasks, maxFpFlasks);
     }
 }

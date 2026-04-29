@@ -8,6 +8,6 @@ public partial class ParamsEditor
 
     public int GetEquipProtectorResidentSpEffectId(int equipProtectorId)
     {
-        return (int) GetValueAtCell(_equipProtector, _idToRowIndexEquipProtector, equipProtectorId, ColIndexResidentSpEffectId);
+        return (int) GetValueAtCell(EquipProtector, _idToRowIndexEquipProtector, equipProtectorId, ColIndexResidentSpEffectId);
     }
 }

@@ -33,46 +33,46 @@ public partial class ParamsEditor
 
     public sbyte GetSpEffectAddStat(int spEffectId, int stat)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexStats[stat]);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexStats[stat]);
     }
     
     public sbyte GetSpEffectAddVigor(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddVigor);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddVigor);
     }
 
     public sbyte GetSpEffectAddMind(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddMind);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddMind);
     }
 
     public sbyte GetSpEffectAddEndurance(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddEndurance);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddEndurance);
     }
 
     public sbyte GetSpEffectAddStrength(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddStrength);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddStrength);
     }
 
     public sbyte GetSpEffectAddDexterity(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddDexterity);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddDexterity);
     }
 
     public sbyte GetSpEffectAddIntelligence(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddIntelligence);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddIntelligence);
     }
 
     public sbyte GetSpEffectAddFaith(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddFaith);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddFaith);
     }
 
     public sbyte GetSpEffectAddArcane(int spEffectId)
     {
-        return (sbyte) GetValueAtCell(_spEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddArcane);
+        return (sbyte) GetValueAtCell(SpEffect, _idToRowIndexSpEffect, spEffectId, ColIndexAddArcane);
     }
 }

@@ -10,39 +10,163 @@ public partial class ParamsEditor
 {
     private BND4 _regulationBnd;
 
-    private Param _itemLotMap;
-    private Dictionary<int, int> _idToRowIndexItemLotMap;
+    private sealed class IndexedParam
+    {
+        public required Param Param { get; init; }
+        public required Dictionary<int, int> IdToRowIndex { get; init; }
+    }
 
-    private Param _itemLotEnemy;
-    private Dictionary<int, int> _idToRowIndexItemLotEnemy;
+    private Param? _itemLotMap;
+    private Dictionary<int, int>? _idToRowIndexItemLotMap;
+    public Param ItemLotMap
+    {
+        get {
+            if (_itemLotMap == null)
+            {
+                _idToRowIndexItemLotMap = new();
+                _itemLotMap = initParamFromBnd(ItemLotParam_map, ItemLotParamDef, _idToRowIndexItemLotMap);
+            }
+            return _itemLotMap;
+        }
+    }
 
-    private Param _shopLineup;
-    private Dictionary<int, int> _idToRowIndexShopLineup;
+    private Param? _itemLotEnemy;
+    private Dictionary<int, int>? _idToRowIndexItemLotEnemy;
+    public Param ItemLotEnemy
+    {
+        get
+        {
+            if (_itemLotEnemy == null)
+            {
+                _idToRowIndexItemLotEnemy = new();
+                _itemLotEnemy = initParamFromBnd(ItemLotParam_enemy, ItemLotParamDef, _idToRowIndexItemLotEnemy);
+            }
+            return _itemLotEnemy;
+        }
+    }
 
-    private Param _charaInit;
-    private Dictionary<int, int> _idToRowIndexCharaInit;
+    private Param? _shopLineup;
+    private Dictionary<int, int>? _idToRowIndexShopLineup;
+    public Param ShopLineup
+    {
+        get
+        {
+            if (_shopLineup == null)
+            {
+                _idToRowIndexShopLineup = new();
+                _shopLineup = initParamFromBnd(ShopLineupParam, ShopLineupParamDef, _idToRowIndexShopLineup);
+            }
+            return _shopLineup;
+        }
+    }
 
-    private Param _equipGoods;
-    public Dictionary<int, int> _idToRowIndexEquipGoods;
+    private Param? _charaInit;
+    private Dictionary<int, int>? _idToRowIndexCharaInit;
+    public Param CharaInit
+    {
+        get
+        {
+            if (_charaInit == null)
+            {
+                _idToRowIndexCharaInit = new();
+                _charaInit = initParamFromBnd(CharaInitParam, CharaInitParamDef, _idToRowIndexCharaInit);
+            }
+            return _charaInit;
+        }
+    }
 
-    private Param _equipWeapon;
-    public Dictionary<int, int> _idToRowIndexEquipWeapon;
+    private Param? _equipGoods;
+    public Dictionary<int, int>? _idToRowIndexEquipGoods;
+    public Param EquipGoods
+    {
+        get
+        {
+            if (_equipGoods == null)
+            {
+                _idToRowIndexEquipGoods = new();
+                _equipGoods = initParamFromBnd(EquipParamGoods, EquipParamGoodsParamDef, _idToRowIndexEquipGoods);
+            }
+            return _equipGoods;
+        }
+    }
 
-    private Param _equipCustomWeapon;
-    public Dictionary<int, int> _idToRowIndexEquipCustomWeapon;
+    private Param? _equipWeapon;
+    public Dictionary<int, int>? _idToRowIndexEquipWeapon;
+    public Param EquipWeapon
+    {
+        get
+        {
+            if (_equipWeapon == null)
+            {
+                _idToRowIndexEquipWeapon = new();
+                _equipWeapon = initParamFromBnd(EquipParamWeapon, EquipParamWeaponParamDef, _idToRowIndexEquipWeapon);
+            }
+            return _equipWeapon;
+        }
+    }
 
-    private Param _equipProtector;
-    public Dictionary<int, int> _idToRowIndexEquipProtector;
+    private Param? _equipCustomWeapon;
+    public Dictionary<int, int>? _idToRowIndexEquipCustomWeapon;
+    public Param EquipCustomWeapon
+    {
+        get
+        {
+            if (_equipCustomWeapon == null)
+            {
+                _idToRowIndexEquipCustomWeapon = new();
+                _equipCustomWeapon = initParamFromBnd(EquipParamCustomWeapon, EquipParamCustomWeaponParamDef, _idToRowIndexEquipCustomWeapon);
+            }
+            return _equipCustomWeapon;
+        }
+    }
 
-    private Param _spEffect;
-    public Dictionary<int, int> _idToRowIndexSpEffect;
+    private Param? _equipProtector;
+    public Dictionary<int, int>? _idToRowIndexEquipProtector;
+    public Param EquipProtector
+    {
+        get
+        {
+            if (_equipProtector == null)
+            {
+                _idToRowIndexEquipProtector = new();
+                _equipProtector = initParamFromBnd(EquipParamProtector, EquipParamProtectorParamDef, _idToRowIndexEquipProtector);
+            }
+            return _equipProtector;
+        }
+    }
+
+    private Param? _spEffect;
+    public Dictionary<int, int>? _idToRowIndexSpEffect;
+    public Param SpEffect
+    {
+        get
+        {
+            if (_spEffect == null)
+            {
+                _idToRowIndexSpEffect = new();
+                _spEffect = initParamFromBnd(SpEffectParam, SpEffectParamDef, _idToRowIndexSpEffect);
+            }
+            return _spEffect;
+        }
+    }
 
     //New
     private Param _bonfireWarpParam;
     private Dictionary<int, int> _idToRowIndexBonfireWarp;
 
     // only has 1 row
-    private Param _gameSystemCommon;
+    private Param? _gameSystemCommon;
+    public Param GameSystemCommon
+    {
+        get
+        {
+            if (_gameSystemCommon == null)
+            {
+                _gameSystemCommon = initParamFromBnd(GameSystemCommonParam, GameSystemCommonParamDef);
+            }
+            return _gameSystemCommon;
+        }
+    }
 
     // Params constants for reading/writing to regulation.bin
     public const string ItemLotParam_map = "ItemLotParam_map.param";
@@ -79,97 +203,17 @@ public partial class ParamsEditor
 
     private ParamsEditor(string regulationPath)
     {
-        _regulationBnd = SFUtil.DecryptERRegulation(regulationPath);
-
-        foreach (BinderFile file in _regulationBnd.Files)
+        try
         {
-            string fileName = Path.GetFileName(file.Name);
-            switch (fileName)
-            {
-                case ItemLotParam_map:
-                    {
-                        _idToRowIndexItemLotMap = new Dictionary<int, int>();
-                        _itemLotMap = initParam(file, ItemLotParamDef, _idToRowIndexItemLotMap);
-                        break;
-                    }
-                case ItemLotParam_enemy:
-                    {
-                        _idToRowIndexItemLotEnemy = new Dictionary<int, int>();
-                        _itemLotEnemy = initParam(file, ItemLotParamDef, _idToRowIndexItemLotEnemy);
-                        break;
-                    }
-                case ShopLineupParam:
-                    {
-                        _idToRowIndexShopLineup = new Dictionary<int, int>();
-                        _shopLineup = initParam(file, ShopLineupParamDef, _idToRowIndexShopLineup);
-                        break;
-                    }
-                case CharaInitParam:
-                    {
-                        _idToRowIndexCharaInit = new Dictionary<int, int>();
-                        _charaInit = initParam(file, CharaInitParamDef, _idToRowIndexCharaInit);
-                        break;
-                    }
-                case EquipParamGoods:
-                    {
-                        _idToRowIndexEquipGoods = new Dictionary<int, int>();
-                        _equipGoods = initParam(file, EquipParamGoodsParamDef, _idToRowIndexEquipGoods);
-                        break;
-                    }
-                case EquipParamWeapon:
-                    {
-                        _idToRowIndexEquipWeapon = new Dictionary<int, int>();
-                        _equipWeapon = initParam(file, EquipParamWeaponParamDef, _idToRowIndexEquipWeapon);
-                        break;
-                    }
-                case EquipParamCustomWeapon:
-                    {
-                        _idToRowIndexEquipCustomWeapon = new Dictionary<int, int>();
-                        _equipCustomWeapon = initParam(file, EquipParamCustomWeaponParamDef, _idToRowIndexEquipCustomWeapon);
-                        break;
-                    }
-                case EquipParamProtector:
-                    {
-                        _idToRowIndexEquipProtector = new Dictionary<int, int>();
-                        _equipProtector = initParam(file, EquipParamProtectorParamDef, _idToRowIndexEquipProtector);
-                        break;
-                    }
-                case SpEffectParam:
-                    {
-                        _idToRowIndexSpEffect = new Dictionary<int, int>();
-                        _spEffect = initParam(file, SpEffectParamDef, _idToRowIndexSpEffect);
-                        break;
-                    }
-                //New Case
-                case BonfireWarpParam:
-                    {
-                        _idToRowIndexBonfireWarp = new Dictionary<int, int>();
-                        _bonfireWarpParam = initParam(file, BonfireWarpParamDef, _idToRowIndexBonfireWarp);
-                        break;
-                    }
-                case GameSystemCommonParam:
-                    {
-                        _gameSystemCommon = initParam(file, GameSystemCommonParamDef);
-                        break;
-                    }
-            }
+            _regulationBnd = SFUtil.DecryptERRegulation(regulationPath);
         }
-        if (_itemLotMap == null || _idToRowIndexItemLotMap == null
-            || _itemLotEnemy == null || _idToRowIndexItemLotEnemy == null
-            || _shopLineup == null || _idToRowIndexShopLineup == null
-            || _charaInit == null || _idToRowIndexCharaInit == null
-            || _equipWeapon == null || _idToRowIndexEquipWeapon == null
-            || _equipCustomWeapon == null || _idToRowIndexEquipCustomWeapon == null
-            || _equipProtector == null || _idToRowIndexEquipProtector == null
-            || _spEffect == null || _idToRowIndexSpEffect == null
-            || _bonfireWarpParam == null || _idToRowIndexBonfireWarp == null //new
-            || _gameSystemCommon == null)
+        catch (Exception ex)
         {
-            throw new Exception("Failed to read expected params from given regulation path");
+            throw new Exception($"Failed to decrypt regulation.bin from given {nameof(regulationPath)}: {regulationPath}. Error: ${ex.Message.ToString()}");
         }
     }
 
-    private Param initParam(BinderFile file, string paramdefName, Dictionary<int, int>? idToRowIndex = null)
+    private static Param initParam(BinderFile file, string paramdefName, Dictionary<int, int>? idToRowIndex = null)
     {
         PARAMDEF paramdef = ResourceManager.GetParamDefByName(paramdefName);
         Param param = Param.Read(file.Bytes);
@@ -186,8 +230,25 @@ public partial class ParamsEditor
         return param;
     }
 
+    private Param initParamFromBnd(string paramname, string paramdefName, Dictionary<int, int>? idToRowIndex = null)
+    {
+        foreach (BinderFile file in _regulationBnd.Files)
+        {
+            if (Path.GetFileName(file.Name) == paramname)
+            {
+                return initParam(file, paramdefName, idToRowIndex);
+            }
+        }
+
+        throw new Exception($"Param {paramname} could not be found in the decrypted regulation.bin");
+    }
+
     private object GetValueAtCell(Param param, Dictionary<int, int>? idToRowIndex, int idOrRowIndex, int colIndex)
     {
+        if (param.Rows.Count > 0)
+        {
+            
+        }
         int rowIndex = idOrRowIndex;
         if (idToRowIndex != null)
         {
@@ -245,47 +306,74 @@ public partial class ParamsEditor
             {
                 case ItemLotParam_map:
                     {
-                        file.Bytes = _itemLotMap.Write();
+                        if (_itemLotMap != null)
+                        {
+                            file.Bytes = _itemLotMap.Write();
+                        }
                         break;
                     }
                 case ItemLotParam_enemy:
                     {
-                        file.Bytes = _itemLotEnemy.Write();
+                        if (_itemLotEnemy != null)
+                        {
+                            file.Bytes = _itemLotEnemy.Write();
+                        }
                         break;
                     }
                 case ShopLineupParam:
                     {
-                        file.Bytes = _shopLineup.Write();
+                        if (_shopLineup != null)
+                        {
+                            file.Bytes = _shopLineup.Write();
+                        }
                         break;
                     }
                 case CharaInitParam:
                     {
-                        file.Bytes = _charaInit.Write();
+                        if (_charaInit != null)
+                        {
+                            file.Bytes = _charaInit.Write();
+                        }
                         break;
                     }
                 case EquipParamGoods:
                     {
-                        file.Bytes = _equipGoods.Write();
+                        if (_equipGoods != null)
+                        {
+                            file.Bytes = _equipGoods.Write();
+                        }
                         break;
                     }
                 case EquipParamWeapon:
                     {
-                        file.Bytes = _equipWeapon.Write();
+                        if (_equipWeapon != null)
+                        {
+                            file.Bytes = _equipWeapon.Write();
+                        }
                         break;
                     }
                 case EquipParamCustomWeapon:
                     {
-                        file.Bytes = _equipCustomWeapon.Write();
+                        if (_equipCustomWeapon != null)
+                        {
+                            file.Bytes = _equipCustomWeapon.Write();
+                        }
                         break;
                     }
                 case EquipParamProtector:
                     {
-                        file.Bytes = _equipProtector.Write();
+                        if (_equipProtector != null)
+                        {
+                            file.Bytes = _equipProtector.Write();
+                        }
                         break;
                     }
                 case SpEffectParam:
                     {
-                        file.Bytes = _spEffect.Write();
+                        if (_spEffect != null)
+                        {
+                            file.Bytes = _spEffect.Write();
+                        }
                         break;
                     }
                 //New Case
@@ -296,7 +384,10 @@ public partial class ParamsEditor
                     }
                 case GameSystemCommonParam:
                     {
-                        file.Bytes = _gameSystemCommon.Write();
+                        if (_gameSystemCommon != null)
+                        {
+                            file.Bytes = _gameSystemCommon.Write();
+                        }
                         break;
                     }
             }
