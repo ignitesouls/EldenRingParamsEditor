@@ -150,6 +150,10 @@ public partial class ParamsEditor
         }
     }
 
+    //New
+    private Param _bonfireWarpParam;
+    private Dictionary<int, int> _idToRowIndexBonfireWarp;
+
     // only has 1 row
     private Param? _gameSystemCommon;
     public Param GameSystemCommon
@@ -192,6 +196,10 @@ public partial class ParamsEditor
 
     public const string GameSystemCommonParam = "GameSystemCommonParam.param";
     public const string GameSystemCommonParamDef = "GameSystemCommonParam";
+
+    //NEW
+    public const string BonfireWarpParam = "BonfireWarpParam.param";
+    public const string BonfireWarpParamDef = "BonfireWarpParam";
 
     private ParamsEditor(string regulationPath)
     {
@@ -366,6 +374,12 @@ public partial class ParamsEditor
                         {
                             file.Bytes = _spEffect.Write();
                         }
+                        break;
+                    }
+                //New Case
+                case BonfireWarpParam:
+                    {
+                        file.Bytes = _bonfireWarpParam.Write();
                         break;
                     }
                 case GameSystemCommonParam:
